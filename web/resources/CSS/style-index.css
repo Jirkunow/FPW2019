@@ -1,0 +1,177 @@
+/*---------------------------------*/
+/*---------Basic set up -----------*/
+/*---------------------------------*/
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html{
+    color: #1f1f1f;
+    font-family: 'Lato', 'Arial', sans-serif;
+    font-size: 20px;
+    font-weight: 200;
+}
+
+.row{
+    position: static;
+}
+
+/*---------------------------------*/
+/*---------Header style set -------*/
+/*---------------------------------*/
+
+header {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.79)) ,url(img/terrasfond.jpg);
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    
+}
+
+/*---------------------------------*/
+/*---------Heading style set ------*/
+/*---------------------------------*/
+
+h1 {
+    margin: 0;
+    color: #70a1ff;;
+    font-size: 200%;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    word-spacing: 4px;
+    margin-bottom: 20px;
+}
+.backG-text-box {
+   position: relative;
+   padding-left: 25%;
+   padding-top: 10%
+}
+/*---------------------------------*/
+/*---------Button style set -------*/
+/*---------------------------------*/
+.btn:link,
+.btn:visited{
+    display: inline-block;
+    padding: 10px 30px;
+    font-weight: 300;
+    text-decoration: none;
+    border-radius: 200px;
+    color: #c7c7c7;
+    transition: background-color 0.5s;
+    margin-right: 15px;
+}
+
+.btn:hover,
+.btn:active {
+    background-color: #1b69ff;
+}
+
+.btn-full:link,
+.btn-full:visited{
+    background-color: #70a1ff;
+    border: 1px solid #70a1ff;
+}
+
+.btn-gost:link,
+.btn-ghost:visited{
+    border: 1px solid #70a1ff; 
+    color: #70a1ff;
+}
+
+.btn-full:hover,
+.btn-full:active{
+    background-color: #1b69ff;
+    border: 1px solid #1b69ff;
+}
+
+.btn-gost:hover,
+.btn-ghost:active{
+    border: 1px solid #1b69ff; 
+    color: #c7c7c7;
+}
+
+/*---------------------------------*/
+/*---------Logo style set ---------*/
+/*---------------------------------*/
+.logo {
+    height: 200px;
+    width: auto;
+    padding-left: 40%;
+    padding-top: 7px;
+    
+}
+
+
+/*---------------------------------*/
+/*--------Nav-Bar style set -------*/
+/*---------------------------------*/
+
+
+.main-nav{
+    float:left;
+    list-style: none;
+    margin-top: 20px;
+}
+
+.main-nav li{
+    display: inline-block;
+    margin-left: 40px;
+    color: #70a1ff;
+}
+
+.main-nav li a:link,
+.main-nav li a:visited{
+    padding: 4px 0;
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 90%;
+    word-spacing: 4px;
+    transition: border-bottom 0.5s;
+}
+
+.main-nav li a:hover,
+.main-nav li a:active{
+    border-bottom: 2px solid #1b69ff;
+}
+/*---------------------------------*/
+/*-------- Form style set ---------*/
+/*---------------------------------*/
+
+.forms-section {
+    margin-left: 18%; 
+    padding-left: 20%;
+    width: 60%;
+    border: 3px solid #70a1ff; 
+    border-radius: 20px;
+    padding: 15px;
+    position: relative;
+    
+}
+.forms-section input h2{
+    padding: 7px 19%;
+}
+label{
+    color: #70a1ff;
+    
+}
+input[type = text],
+input[type = password],
+checkbox,
+textarea{
+    width: 100%;
+    padding: 7px;
+    border-radius: 3px;
+    border: 2px solid #ccc;
+    
+}
+
+textarea{
+    padding-right: 70%;
+    padding-bottom: 20px;
+}
+
+
