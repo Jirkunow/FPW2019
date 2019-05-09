@@ -10,6 +10,7 @@ import Model.UserFactory;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author gznag
  */
+@WebServlet(name = "Login", urlPatterns = {"/login"})
 public class Login extends HttpServlet {
 
     /**
@@ -34,7 +36,7 @@ public class Login extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-           response.setContentType("text/html;charset=UTF-8");
+            response.setContentType("text/html;charset=UTF-8");
             
             String email = request.getParameter("email");
             String password = request.getParameter("password");
@@ -55,12 +57,12 @@ public class Login extends HttpServlet {
                 sessione.setAttribute("user", user);
                 
                 if( user.getAutore().equals("0")){
-                    request.getRequestDispatcher("M2/gestioneArticoli.jsp").forward(request, response);
+                    request.getRequestDispatcher("gestioneArticoli.jsp").forward(request, response);
                 }else{
-                    request.getRequestDispatcher("M2/articoli.jsp").forward(request, response);
+                    request.getRequestDispatcher("articoli.jsp").forward(request, response);
                 }
             }else{
-                request.getRequestDispatcher("M2/login.jsp").forward(request, response);
+                request.getRequestDispatcher("login.jsp").forward(request, response);
             }
         }
     }
