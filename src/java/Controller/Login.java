@@ -5,10 +5,12 @@
  */
 package Controller;
 
+import Model.Articoli;
 import Model.User;
 import Model.UserFactory;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -41,25 +43,39 @@ public class Login extends HttpServlet {
             String email = request.getParameter("email");
             String password = request.getParameter("password");
             
-            User user = new User();
+            HttpSession sessione = request.getSession();
+                
+            User user = (User) sessione.getAttribute("user");
             
+            if(user != null){
+                
+                ArrayList<Articoli> articoli = new ArrayList();
+                articoli = user.getArticoliAll();
+                if( user.getAutore().equals("0")){
+                    sessione.setAttribute("user", user);
+                    sessione.setAttribute("articoli", user);
+                    request.getRequestDispatcher("gestioneArticoli.jsp").forward(request, response);
+                }else{
+                    sessione.setAttribute("user", user);
+                    sessione.setAttribute("articoli", articoli);
+                    request.getRequestDispatcher("articoli.jsp").forward(request, response);
+                }
+            }
             user = UserFactory.getInstance().getUser(email, password);
             
             if(user != null){
-               
-                HttpSession sessioneVecchia = request.getSession(false);
-            
-                if(sessioneVecchia != null){
-                    sessioneVecchia.invalidate();
-                }
-             
-                HttpSession sessione = request.getSession();
+                
+                ArrayList<Articoli> articoli = new ArrayList();
+                articoli = user.getArticoliAll();
+                
                 sessione.setAttribute("user", user);
+                sessione.setAttribute("articoli", articoli);
+                
                 
                 if( user.getAutore().equals("0")){
-                    request.getRequestDispatcher("gestioneArticoli.jsp").forward(request, response);
+                    response.sendRedirect("gestioneArticoli.jsp");
                 }else{
-                    request.getRequestDispatcher("articoli.jsp").forward(request, response);
+                    response.sendRedirect("articoli.jsp");
                 }
             }else{
                 request.getRequestDispatcher("login.jsp").forward(request, response);
