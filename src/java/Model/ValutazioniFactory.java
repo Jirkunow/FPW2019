@@ -33,28 +33,16 @@ public class ValutazioniFactory {
         Valutazioni u1 = new Valutazioni();
         u1.setCommentoAutori("Molto bello");
         u1.setCommentoOrganizzatori("Molto valido");
-        u1.setValID(0);
-        u1.setVoto("8.4");
+        u1.setVoto(8);
         
         Valutazioni u2 = new Valutazioni();
         u2.setCommentoAutori("Non molto realistico");
         u2.setCommentoOrganizzatori("Controllare questa gente");
-        u2.setValID(1);
-        u2.setVoto("4");
+        u2.setVoto(4);
         
         
         return valutazioni;
     }
     
-    public Valutazioni getValutazioni(int ID){
-        List<Valutazioni> valutazioni = this.getValutazioni();
-        for(Valutazioni u : valutazioni){
-            if(u.getValID() == ID){
-                return u;
-            }
-        }
-        
-        return null; 
-    }
     
 }

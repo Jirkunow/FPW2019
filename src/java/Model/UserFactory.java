@@ -30,7 +30,11 @@ public class UserFactory {
     public List<User> getUsers(){
         List<User> users = new ArrayList<>();
         
-        User u1 = new User();
+        List<Articoli> articoli = new ArrayList();
+        articoli = ArticoliFactory.getInstance().getArticoli();
+         
+        User u1 = new User();         
+        u1.setArticoli(articoli.get(0));
         u1.setNome("Davide");
         u1.setCognome("Spano");
         u1.setEmail("davide.spano@unica.it");
@@ -43,8 +47,10 @@ public class UserFactory {
         User u2 = new User();
         u2.setNome("Pinco");
         u2.setCognome("Pallino");
-        u2.setEmail("pinco.pallino@gmail.com");
+        u2.setEmail("pinco.pallino@gmail.com"); 
         u2.setPassword("hello");
+        u2.setArticoli(articoli.get(1));
+        u2.setArticoli(articoli.get(2));
         u2.setAutore("si");
         u2.setEnte("Università di Pallonia");
         u2.setFoto("No foto grazie");

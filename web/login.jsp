@@ -15,15 +15,15 @@
     <body>
         <header>
             <div >
-            <img src="resources/IMG/lolomirco.png" alt = "Free peer review logo" class = "logo">  
-            <form action ="${pageContext.request.contextPath}/login" method ="post" class = "forms-section">
-                <h1>Login Page</h1>
-                <label>Email</label>
-                <input type ="text" name="email" id="email">
-                <label>Password</label>
-                <input type="password" name = "password"  id="password">
-                <input type="submit" name="login" class="btn" id="login">
-            </form>
+                <img src="resources/IMG/lolomirco.png" alt = "Free peer review logo" class = "logo">  
+                <form action ="${pageContext.request.contextPath}/login" method ="post" class = "forms-section">
+                    <h1>Login Page</h1>
+                    <label>Email</label>
+                    <input type ="text" name="email" id="email">
+                    <label>Password</label>
+                    <input type="password" name = "password"  id="password">
+                    <button type="submit" name="login" class="btn" id="login">Login</button>
+                </form>
             </div>      
         </header>
     </body>

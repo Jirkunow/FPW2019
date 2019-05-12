@@ -11,21 +11,20 @@ package Model;
  * @author gznag
  */
 public class Valutazioni {
-    private int valID;
-    String voto;
+    int voto;
     String commentoXautori;
     String commentoXorganizzatori;
     
     public Valutazioni(){
-        this.voto="0";
+        this.voto= 0;
         this.commentoXorganizzatori="0";
         this.commentoXautori="0";
     }
     
-    public String getVoto(){
+    public int getVoto(){
         return voto;
     }
-    public void setVoto(String voto){
+    public void setVoto(int voto){
         this.voto = voto;
     }
     
@@ -43,17 +42,5 @@ public class Valutazioni {
         this.commentoXorganizzatori = commento;
     }
     
-    /**
-     * @return the valID
-     */
-    public int getValID() {
-        return valID;
-    }
-
-    /**
-     * @param aValID the valID to set
-     */
-    public void setValID(int aValID) {
-        valID = aValID;
-    }
+   
 }

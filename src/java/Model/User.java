@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -14,14 +15,14 @@ import java.util.ArrayList;
  */
 public class User {
     
-    String nome;
-    String cognome;
-    ArrayList<Articoli> articoli ;
-    String foto;
-    String email;
-    String password;
-    String ente;
-    String autore;
+    private String nome;
+    private String cognome;
+    private ArrayList<Articoli> articoli ;
+    private String foto;
+    private String email;
+    private String password;
+    private String ente;
+    private String autore;
     
     public User(){
         this.nome = "0";
@@ -36,6 +37,10 @@ public class User {
     
     public void setArticoli(Articoli articoli){
         this.articoli.add(articoli);
+    }
+    
+    public ArrayList<Articoli> getArticoliAll(){
+        return this.articoli;
     }
     
     public Articoli getArticoli(int i){

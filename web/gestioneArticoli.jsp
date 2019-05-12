@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -18,6 +19,7 @@
     <body>
         <!-- Include header here -->
         <jsp:include page="header.jsp"/>
+        <jsp:include page="nav.jsp"/>
         
         
         

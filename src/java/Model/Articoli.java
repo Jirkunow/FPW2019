@@ -18,9 +18,12 @@ public class Articoli {
     String titolo;
     String categoria;
     String stato;
-    String valutazione;
+    Valutazioni valutazione;
     String immagine;
     String testo;
+    int IdArt;
+    
+    
     
     public Articoli(){
         this.autori= new ArrayList();
@@ -30,7 +33,7 @@ public class Articoli {
         this.stato = "0";
         this.testo = "0";
         this.titolo = "0";
-        this.valutazione = "0";
+        this.valutazione = new Valutazioni();
     }
     
     public void setAutore(String autore){
@@ -88,12 +91,25 @@ public class Articoli {
     public String getTitolo(){
         return titolo;
     }
-    public void setValutazione(String valutazione){
+    public void setValutazione(Valutazioni valutazione){
         this.valutazione = valutazione;
     }
     
-    public String getValutazione(){
+    public Valutazioni getValutazione(){
         return valutazione;
     }
-    
+     /**
+     * @return the IdArt
+     */
+    public String getIdArt() {
+        Integer id = new Integer(this.IdArt);
+        return id.toString();
+    }
+
+    /**
+     * @param IdArt the IdArt to set
+     */
+    public void setIdArt(int IdArt) {
+        this.IdArt = IdArt;
+    }
 }

@@ -11,18 +11,22 @@ import Model.UserFactory;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.Collections;
+
 
 /**
  *
  * @author gznag
  */
-public class Login extends HttpServlet {
+@WebServlet(name = "MyPapers", urlPatterns = {"/articoli"})
+public class MyPapers extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,52 +42,20 @@ public class Login extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             response.setContentType("text/html;charset=UTF-8");
-            
-            
-            String email = request.getParameter("email");
-            String password = request.getParameter("password");
-            
             HttpSession sessione = request.getSession();
-                
+             
             User user = (User) sessione.getAttribute("user");
             
-            if(user != null){
-                
-                sessione.invalidate();
-                
-                user = UserFactory.getInstance().getUser(email, password);
-                ArrayList<Articoli> articoli = new ArrayList();
-                articoli = user.getArticoliAll();
-                articoli.sort((a,b) -> a.getData().compareTo(b.getData()));
-                
-                if( user.getAutore().equals("0")){
-                    sessione.setAttribute("user", user);
-                    sessione.setAttribute("articoli", user);
-                    request.getRequestDispatcher("gestioneArticoli.jsp").forward(request, response);
-                }else{
-                    sessione.setAttribute("user", user);
-                    sessione.setAttribute("articoli", articoli);
-                    request.getRequestDispatcher("articoli.jsp").forward(request, response);
-                }
+            if(user == null){
+                response.sendRedirect("login.jsp");
             }
-            user = UserFactory.getInstance().getUser(email, password);
+  
+            ArrayList<Articoli> articoli = user.getArticoliAll();
             
-            if(user != null){
-                
-                ArrayList<Articoli> articoli = new ArrayList();
-                articoli = user.getArticoliAll();
-                articoli.sort((a,b) -> a.getData().compareTo(b.getData()));
-                
-                sessione.setAttribute("user", user);
-                sessione.setAttribute("articoli", articoli);
-                
-                if( user.getAutore().equals("0")){
-                    response.sendRedirect("gestioneArticoli.jsp");
-                }else{
-                    response.sendRedirect("articoli.jsp");
-                }
+            if(user.getAutore().equals("0")){
+                response.sendRedirect("AccessoNegat.jsp");
             }else{
-                request.getRequestDispatcher("login.jsp").forward(request, response);
+                response.sendRedirect("articoli.jsp");
             }
         }
     }
@@ -126,5 +98,4 @@ public class Login extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }

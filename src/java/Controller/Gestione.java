@@ -5,14 +5,10 @@
  */
 package Controller;
 
-import Model.Articoli;
 import Model.User;
-import Model.UserFactory;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,7 +18,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author gznag
  */
-public class Login extends HttpServlet {
+public class Gestione extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,7 +33,7 @@ public class Login extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            response.setContentType("text/html;charset=UTF-8");
+             response.setContentType("text/html;charset=UTF-8");
             
             
             String email = request.getParameter("email");
@@ -47,44 +43,6 @@ public class Login extends HttpServlet {
                 
             User user = (User) sessione.getAttribute("user");
             
-            if(user != null){
-                
-                sessione.invalidate();
-                
-                user = UserFactory.getInstance().getUser(email, password);
-                ArrayList<Articoli> articoli = new ArrayList();
-                articoli = user.getArticoliAll();
-                articoli.sort((a,b) -> a.getData().compareTo(b.getData()));
-                
-                if( user.getAutore().equals("0")){
-                    sessione.setAttribute("user", user);
-                    sessione.setAttribute("articoli", user);
-                    request.getRequestDispatcher("gestioneArticoli.jsp").forward(request, response);
-                }else{
-                    sessione.setAttribute("user", user);
-                    sessione.setAttribute("articoli", articoli);
-                    request.getRequestDispatcher("articoli.jsp").forward(request, response);
-                }
-            }
-            user = UserFactory.getInstance().getUser(email, password);
-            
-            if(user != null){
-                
-                ArrayList<Articoli> articoli = new ArrayList();
-                articoli = user.getArticoliAll();
-                articoli.sort((a,b) -> a.getData().compareTo(b.getData()));
-                
-                sessione.setAttribute("user", user);
-                sessione.setAttribute("articoli", articoli);
-                
-                if( user.getAutore().equals("0")){
-                    response.sendRedirect("gestioneArticoli.jsp");
-                }else{
-                    response.sendRedirect("articoli.jsp");
-                }
-            }else{
-                request.getRequestDispatcher("login.jsp").forward(request, response);
-            }
         }
     }
 
