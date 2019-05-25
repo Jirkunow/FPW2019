@@ -36,9 +36,11 @@ public class WritePaper extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             response.setContentType("text/html;charset=UTF-8");
+            
             HttpSession sessione = request.getSession();
-             
             User user = (User) sessione.getAttribute("user");
+            String idArt = request.getParameter("idArt");
+            String salva = request.getParameter("salva");
             
             if(user == null){
                 response.sendRedirect("login.jsp");
@@ -49,12 +51,12 @@ public class WritePaper extends HttpServlet {
             if(user.getAutore().equals("0")){
                 response.sendRedirect("AccessoNegat.jsp");
             }else{
-                String idArt = request.getParameter("id");
-            
                 for(int i = 0; i < articoli.size(); i++) {
-                    if(articoli.get(i).getIdArt().equals(idArt)){
-                        request.setAttribute("titolo", articoli.get(i));
-                        response.sendRedirect("scriviArticolo.jsp");
+                    if(articoli.get(i).getIdArt().equals(idArt+"")){
+                        sessione.setAttribute("articolo", articoli.get(i));
+                        
+                        sessione.setAttribute("idArt", idArt);
+                        request.getRequestDispatcher("scriviArticolo.jsp?idArt="+idArt+"&salva="+salva+"").forward(request, response);
                     }
                 }
             }

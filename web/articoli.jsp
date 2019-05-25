@@ -38,7 +38,7 @@
                                     <th>${articolo.getStato()}</th>
                                     <th>
                                         <c:if test="${articolo.getStato() == 'Aperto'}" >
-                                            <button class="btn"><a href="${pageContext.request.contextPath}/WritePaper?id=${articolo.getIdArt()}">Modifica</a></button>
+                                            <button class="btn"><a href="${pageContext.request.contextPath}/WritePaper?idArt=${articolo.getIdArt()}&salva=false">Modifica</a></button>
                                         </c:if>
 
                                         <c:if test="${articolo.getStato() == 'Da valutare'}" >

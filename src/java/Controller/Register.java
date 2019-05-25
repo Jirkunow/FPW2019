@@ -5,28 +5,20 @@
  */
 package Controller;
 
-import Model.Articoli;
 import Model.User;
-import Model.UserFactory;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Comparator;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.Collections;
-
 
 /**
  *
  * @author gznag
  */
-@WebServlet(name = "MyPapers", urlPatterns = {"/articoli"})
-public class MyPapers extends HttpServlet {
+public class Register extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,20 +37,14 @@ public class MyPapers extends HttpServlet {
             HttpSession sessione = request.getSession();
              
             User user = (User) sessione.getAttribute("user");
+            String reg = request.getParameter("reg");
             
-            if(user == null){
-                response.sendRedirect("login.jsp");
+            if(reg.equals("yes")){
+                request.getRequestDispatcher("Profilo.jsp?registra=true").forward(request, response);
             }else{
-                 ArrayList<Articoli> articoli = user.getArticoliAll();
-            
-            if(user.getAutore().equals("0")){
-                response.sendRedirect("AccessoNegat.jsp");
-            }else{
-                response.sendRedirect("articoli.jsp");
-                }
+                sessione.setAttribute("user", user);
+                request.getRequestDispatcher("Profilo.jsp?registra=false").forward(request, response);
             }
-  
-           
         }
     }
 
@@ -100,4 +86,5 @@ public class MyPapers extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 }

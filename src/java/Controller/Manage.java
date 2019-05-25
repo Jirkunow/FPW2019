@@ -7,26 +7,22 @@ package Controller;
 
 import Model.Articoli;
 import Model.User;
-import Model.UserFactory;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Comparator;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.Collections;
-
 
 /**
  *
  * @author gznag
  */
-@WebServlet(name = "MyPapers", urlPatterns = {"/articoli"})
-public class MyPapers extends HttpServlet {
+@WebServlet(name = "Manage", urlPatterns = {"/Gestione"})
+public class Manage extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -49,16 +45,14 @@ public class MyPapers extends HttpServlet {
             if(user == null){
                 response.sendRedirect("login.jsp");
             }else{
-                 ArrayList<Articoli> articoli = user.getArticoliAll();
+                ArrayList<Articoli> articoli = user.getArticoliAll();
             
-            if(user.getAutore().equals("0")){
-                response.sendRedirect("AccessoNegat.jsp");
-            }else{
-                response.sendRedirect("articoli.jsp");
-                }
+                if(user.getAutore().equals("0")){
+                    response.sendRedirect("gestioneArticoli.jsp");
+                }else{
+                     response.sendRedirect("AccessoNegat.jsp");
+                    }
             }
-  
-           
         }
     }
 
@@ -100,4 +94,5 @@ public class MyPapers extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 }

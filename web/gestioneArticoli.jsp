@@ -20,9 +20,38 @@
         <!-- Include header here -->
         <jsp:include page="header.jsp"/>
         <jsp:include page="nav.jsp"/>
-        
-        
-        
-        
+        <section class="span span-9-of-12">
+            <h2>Da valutare</h2>
+            <table class="table-section">
+                <tbody>
+                    <tr>
+                            <th>Data</th>
+                            <th>Titolo</th>
+                            <th>Valutazione</th>
+                            <th>Decisione</th>
+                        </tr>
+                    <c:forEach items="${articoli}" var="articolo" >
+                        <tr>
+                            <th>${articolo.getData()}</th>
+                            <th>${articolo.getTitolo()}</th>
+                            <th>${articolo.getValutazione().getVoto()}</th>
+                            <th>
+                                <c:if test="${articolo.getValutazione().getVoto() <= 2 && articolo.getStato() != 'Da valutare'}" >
+                                    Respinto
+                                </c:if>
+
+                                <c:if test="${articolo.getValutazione().getVoto() > 2}" >
+                                    Accettato
+                                </c:if>
+
+                                <c:if test="${articolo.getStato() == 'Da valutare'}" >
+                                    Attesa valutazioni
+                                </c:if>
+                            </th>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+        </section>
     </body>
 </html>

@@ -23,6 +23,7 @@
                     <label>Password</label>
                     <input type="password" name = "password"  id="password">
                     <button type="submit" name="login" class="btn" id="login">Login</button>
+                    <button type="submit" name="login" class="btn" id="login"><a href="${pageContext.request.contextPath}/Register?reg=yes">Registrati</a></button>
                 </form>
             </div>      
         </header>

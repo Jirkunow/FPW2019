@@ -24,7 +24,6 @@
                                 <li><a href="valutazione.html" >Articoli da valutare</a></li>
                             </ul>
                         </c:if>
-                        
                     </nav>
                 </div>
     </body>

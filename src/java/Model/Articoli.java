@@ -21,6 +21,7 @@ public class Articoli {
     Valutazioni valutazione;
     String immagine;
     String testo;
+    static int totArt;
     int IdArt;
     
     
@@ -34,6 +35,8 @@ public class Articoli {
         this.testo = "0";
         this.titolo = "0";
         this.valutazione = new Valutazioni();
+        this.IdArt = totArt;
+        this.totArt++;
     }
     
     public void setAutore(String autore){
@@ -42,6 +45,10 @@ public class Articoli {
     
     public String getAutore(int i){
         return this.autori.get(i);
+    }
+    
+    public ArrayList getAutori(){
+        return this.autori;
     }
     
     public void setCategoria(String categoria){
