@@ -11,6 +11,8 @@ package Model;
  * @author gznag
  */
 public class Valutazioni {
+    private int idValu;
+    private int idArt;
     int voto;
     String commentoXautori;
     String commentoXorganizzatori;
@@ -40,6 +42,34 @@ public class Valutazioni {
     }
     public void setCommentoOrganizzatori(String commento){
         this.commentoXorganizzatori = commento;
+    }
+
+    /**
+     * @return the idValu
+     */
+    public int getIdValu() {
+        return idValu;
+    }
+
+    /**
+     * @param idValu the idValu to set
+     */
+    public void setIdValu(int idValu) {
+        this.idValu = idValu;
+    }
+
+    /**
+     * @return the idArt
+     */
+    public int getIdArt() {
+        return idArt;
+    }
+
+    /**
+     * @param idArt the idArt to set
+     */
+    public void setIdArt(int idArt) {
+        this.idArt = idArt;
     }
     
    

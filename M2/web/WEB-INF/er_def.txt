@@ -1,0 +1,8 @@
+Articolo(idArticolo ,titolo ,testo ,immagine ,stato ,pubblicazione ,categoria)
+
+User(id ,nome ,cognome ,email ,ente ,autore)
+
+Valutazioni(idValu ,idArt ,voto ,commentoOrganizzatori ,commentoAutori)
+
+Art_user(idArticolo  ,id )
+

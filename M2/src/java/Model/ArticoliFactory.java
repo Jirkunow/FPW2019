@@ -5,84 +5,153 @@
  */
 package Model;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author gznag
  */
 public class ArticoliFactory {
     
-    private static ArticoliFactory singleton;
+   private static ArticoliFactory singleton;
+    //private ArrayList<Utente> usersList = new ArrayList<Utente>();
 
-    private ArticoliFactory(){
-        
+    private ArticoliFactory() {
+
     }
-    
-    public static ArticoliFactory getInstance(){
-        if(singleton == null){
+
+    public static ArticoliFactory getInstance() {
+        if (singleton == null) {
             singleton = new ArticoliFactory();
         }
-        
         return singleton;
     }
-    
-    public List<Articoli> getArticoli(){
-        List<Articoli> articoli = new ArrayList<>();
-        
-        Articoli u1 = new Articoli();
-        u1.setAutore("Davide Spano");
-        u1.setAutore("Giulio Golia");
-        u1.setCategoria("SQL");
-        u1.setData("2019/11/2");
-        u1.setImmagine("Path img");
-        u1.setStato("Da valutare");
-        u1.setTesto("SQL injection è una tecnica di code injection, usata per attaccare applicazioni di gestione dati, con la quale vengono inserite delle stringhe di codice SQL malevole all'interno di campi di input in modo che queste ultime vengano poi eseguite (ad esempio per fare inviare il contenuto del database all'attaccante). L'SQL injection sfrutta le vulnerabilità di sicurezza del codice di un'applicazione, ad esempio quando l'input dell'utente non è correttamente filtrato da 'caratteri di escape' contenuti nelle stringhe SQL oppure non è fortemente tipizzato e viene eseguito inaspettatamente. L'SQL injection è più conosciuto come attacco per i siti web, ma è anche usato per attaccare qualsiasi tipo di database SQL.\n" +
-"\n" +
-"                        L'SQL injection permette agli attaccanti di effettuare spoof identify, modificare dati esistenti, causare repudiation issues come l'annullamento di transazioni o la modifica dei bilanci, permette di ottenere tutti i dati sul sistema, eliminare dati oppure fare in modo che non siano accessibili, e diventare amministratori del database server.\n" +
-"\n" +
-"                        In uno studio del 2012, è stato osservato che in media le applicazioni web ricevono 4 attacchi al mese, ed i rivenditori ricevono il doppio degli attacchi rispetto alle industrie.\n" +
-"                    ");
-        u1.setTitolo("La SQL injection");
-        u1.setIdArt(0);
-        articoli.add(u1);
-        
-        Articoli u2 = new Articoli();
-       u2.setAutore("Pinco Pallino");
-        u2.setAutore("Paul Ball");
-        u2.setCategoria("Servlet");
-        u2.setData("11/1/2019");
-        u2.setImmagine("Path img");
-        u2.setStato("Aperto");
-        u2.setTesto("Alieni incapaci di sostenere un'invasione su larga scala, a causa del proprio numero ridotto, possono effettuare piuttosto delle incursioni, sfruttando lo shock della propria venuta per ispirare terrore. Altre storie su questo argomento vedono gli alieni condurre ricognizioni e missioni di avanscoperta per saggiare la risposta della popolazione umana e in particolare delle forze militari terrestri. Gli alieni cercheranno inoltre di scegliere bersagli isolati, quali zone desertiche o rurali degli Stati Uniti, come area per condurre dei test o per lo sbarco. Questo tipo di trama attribuisce migliori possibilità a piccoli gruppi, come la polizia locale o anche ordinari civili, di respingere gli invasori e di ritornare alla vita normale dopo l'evento.");
-        u2.setTitolo("Guerra e alieni");
-        u2.setIdArt(1);
-        articoli.add(u2);
-        
-        Articoli u3 = new Articoli();
-        u3.setAutore("Pinco Pallino");
-        u3.setAutore("Paul ùùù");
-        u3.setCategoria("php");
-        u3.setData("10/1/2019");
-        u3.setImmagine("Path img");
-        u3.setStato("Aperto");
-        u3.setTesto("Alieni incapaci di sostenere un'invasione su larga scala, a causa del proprio numero ridotto, possono effettuare piuttosto delle incursioni, sfruttando lo shock della propria venuta per ispirare terrore. Altre storie su questo argomento vedono gli alieni condurre ricognizioni e missioni di avanscoperta per saggiare la risposta della popolazione umana e in particolare delle forze militari terrestri. Gli alieni cercheranno inoltre di scegliere bersagli isolati, quali zone desertiche o rurali degli Stati Uniti, come area per condurre dei test o per lo sbarco. Questo tipo di trama attribuisce migliori possibilità a piccoli gruppi, come la polizia locale o anche ordinari civili, di respingere gli invasori e di ritornare alla vita normale dopo l'evento.");
-        u3.setTitolo("Coltivare gioia");
-        u1.setIdArt(3);
-        articoli.add(u3);
-        
-        return articoli;
+
+    public ArrayList<Articoli> getAllArticoli() {
+        DbConnection connectFactory = DbConnection.getInstance();
+        Connection conn = connectFactory.getConnection();
+        ArrayList<Articoli> usersList = new ArrayList<>();
+
+        try {
+
+            //Sintassi sql contro sql injection
+            String sql = "select * from articolo";
+            Statement stmt = conn.createStatement();
+
+            ResultSet set = stmt.executeQuery(sql);
+
+            //Se la query mi ha restituito con successo l'utente
+            while (set.next()) {
+                Articoli u = new Articoli();
+                u.setIdArt(set.getInt("idArt"));
+                u.setTitolo(set.getString("titolo"));
+                u.setTesto(set.getString("testo"));
+                u.setImmagine(set.getString("immagine"));
+                u.setStato(set.getString("stato"));
+                u.setData(set.getString("pubblicazione"));
+                u.setCategoria(set.getString("categoria"));
+
+                usersList.add(u);
+            }
+
+            //Chiudo la connessione
+            stmt.close();
+            conn.close();
+
+        } catch (SQLException e) {
+            Logger.getLogger(ArticoliFactory.class.getName()).log(Level.SEVERE, null, e);
+        }
+
+        return usersList;
     }
-    
-    public Articoli getValutazioni(String artTit){
-        List<Articoli> articoli = this.getArticoli();
-        for(Articoli u : articoli){
-            if(u.getTitolo().equals(artTit)){
-                return u;
+
+    public Articoli getArticolo(int idArt, String titolo) {  
+        DbConnection connFact = DbConnection.getInstance();
+        Connection conn = connFact.getConnection();
+        Articoli u=null;
+        try {
+
+            //Sintassi sql contro sql injection
+            String sql = "select * from articolo where idArt = ? and titolo = ? ";
+            PreparedStatement stmt;
+            stmt = conn.prepareStatement(sql);
+
+            stmt.setInt(1, idArt);
+            stmt.setString(2, titolo);
+
+            ResultSet set = stmt.executeQuery();
+
+            //Se la query mi ha restituito con successo l'utente
+            while (set.next()) {
+                u = new Articoli();
+                u.setIdArt(set.getInt("idArt"));
+                u.setTitolo(set.getString("titolo"));
+                u.setTesto(set.getString("testo"));
+                u.setImmagine(set.getString("immagine"));
+                u.setStato(set.getString("stato"));
+                u.setData(set.getString("pubblicazione"));
+                u.setCategoria(set.getString("categoria"));
+            }
+
+            //Chiudo la connessione
+            stmt.close();
+            conn.close();
+
+        } catch (SQLException e) {
+            Logger.getLogger(ArticoliFactory.class.getName()).log(Level.SEVERE, null, e);
+        }
+        //L'utente con username urs e password psw non esiste
+        return u;
+    }
+
+    public boolean removeArticolo(int idArt) {
+        Connection conn = null;
+        try {
+            DbConnection connFact = DbConnection.getInstance();
+            conn = connFact.getConnection();
+
+            conn.setAutoCommit(false);
+
+            //Query relativa alla rimozione dei suoi libri
+            String sql0 = "delete from articolo where idArt = ?";
+            PreparedStatement remL = conn.prepareStatement(sql0);
+            remL.setInt(1, idArt);
+            remL.executeUpdate();
+
+            conn.commit();
+            conn.setAutoCommit(true);
+
+            //Chiudo la connessione
+            remL.close();
+            conn.close();
+            return true;
+
+        } catch (SQLException e) {
+            Logger.getLogger(ArticoliFactory.class.getName()).log(Level.SEVERE, null, e);
+            if (conn != null) {
+                try {
+                    conn.rollback();
+                } catch (SQLException eR) {
+                    Logger.getLogger(ArticoliFactory.class.getName()).log(Level.SEVERE, null, eR);
+                }
             }
         }
-        
-        return null; 
+        return false;
+    }
+
+    void testConnection() {
+        DbConnection connectFactory = DbConnection.getInstance();
+        Connection conn = connectFactory.getConnection();
+
+        if (conn != null) {
+            System.out.println("Connessione eseguita con successo");
+        }
     }
     
 }
