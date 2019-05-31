@@ -59,7 +59,7 @@ public class Login extends HttpServlet {
                 if( user.getAutore().equals("0")){
                     sessione.setAttribute("user", user);
                     sessione.setAttribute("articoli", user);
-                    request.getRequestDispatcher("/Gestione").forward(request, response);
+                    request.getRequestDispatcher("gestioneArticoli.jsp").forward(request, response);
                 }else{
                     sessione.setAttribute("user", user);
                     sessione.setAttribute("articoli", articoli);

@@ -76,7 +76,7 @@ public class UserFactory {
         try {
 
             //Sintassi sql contro sql injection
-            String sql = "select * from utente where email = ? and password = ? ";
+            String sql = "select * from user where email = ? and password = ? ";
             PreparedStatement stmt;
             stmt = conn.prepareStatement(sql);
 
@@ -104,13 +104,12 @@ public class UserFactory {
     public User getUser(String usr, String psw) {  
         DbConnection connFact = DbConnection.getInstance();
         
-        
         Connection conn = connFact.getConnection();
-        User u=null;
+        User u =  new User();
         try {
 
             //Sintassi sql contro sql injection
-            String sql = "select * from utente where email = ? and password = ? ";
+            String sql = "select * from user where email = ? and password = ? ";
             PreparedStatement stmt;
             stmt = conn.prepareStatement(sql);
 
@@ -120,14 +119,26 @@ public class UserFactory {
             ResultSet set = stmt.executeQuery();
 
             //Se la query mi ha restituito con successo l'utente
+            
             while (set.next()) {
-                u = new User();
+                
                 u.setID(set.getInt("id"));
                 u.setNome(set.getString("nome"));
                 u.setCognome(set.getString("cognome"));
                 u.setEmail(set.getString("email"));
                 u.setEnte(set.getString("ente"));
                 u.setAutore(set.getString("autore"));
+            }
+            
+            ArrayList<Articoli> usersList = new ArrayList<>();
+            if(u.getAutore().equals("0")){
+                usersList = ArticoliFactory.getInstance().getAllArticoli();
+            }else{
+                usersList = ArticoliFactory.getInstance().getUsrArticolo(u.getID());
+            }
+            
+            for(int i=0; i< usersList.size(); i++ ){
+                u.setArticoli(usersList.get(i));
             }
 
             //Chiudo la connessione
@@ -149,7 +160,7 @@ public class UserFactory {
 
             conn.setAutoCommit(false);
 
-            //Query relativa alla rimozione dei suoi libri
+            //Query relativa alla rimozione dei suoi articoli 
             String sql0 = "delete from articolo where autore = ?";
             PreparedStatement remL = conn.prepareStatement(sql0);
             remL.setInt(1, idUser);
@@ -162,7 +173,6 @@ public class UserFactory {
             remU.setInt(1, idUser);
 
             remU.executeUpdate();
-
             conn.commit();
             conn.setAutoCommit(true);
 

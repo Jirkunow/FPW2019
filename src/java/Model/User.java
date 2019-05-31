@@ -23,6 +23,7 @@ public class User {
     private String password;
     private String ente;
     private String autore;
+    private int ID;
     
     public User(){
         this.nome = "0";
@@ -100,6 +101,20 @@ public class User {
     
     public String getAutore(){
         return autore;
+    }
+
+    /**
+     * @return the ID
+     */
+    public int getID() {
+        return ID;
+    }
+
+    /**
+     * @param ID the ID to set
+     */
+    public void setID(int ID) {
+        this.ID = ID;
     }
     
 }

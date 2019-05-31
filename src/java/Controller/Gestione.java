@@ -5,9 +5,11 @@
  */
 package Controller;
 
+import Model.Articoli;
 import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -33,15 +35,22 @@ public class Gestione extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-             response.setContentType("text/html;charset=UTF-8");
-            
-            
-            String email = request.getParameter("email");
-            String password = request.getParameter("password");
-            
+            response.setContentType("text/html;charset=UTF-8");
             HttpSession sessione = request.getSession();
-                
+             
             User user = (User) sessione.getAttribute("user");
+            
+            if(user == null){
+                response.sendRedirect("login.jsp");
+            }else{
+                 ArrayList<Articoli> articoli = user.getArticoliAll();
+            
+            if(user.getAutore().equals("0")){
+                response.sendRedirect("gestioneArticoli.jsp");
+            }else{
+                response.sendRedirect("AccessoNegat.jsp");
+                }
+            }
             
         }
     }
